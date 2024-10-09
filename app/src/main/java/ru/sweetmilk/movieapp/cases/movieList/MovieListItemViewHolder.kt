@@ -1,8 +1,6 @@
 package ru.sweetmilk.movieapp.cases.movieList
 
 import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
-import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import ru.sweetmilk.movieapp.api.models.MovieListItem
 import ru.sweetmilk.movieapp.cases.movieList.viewModel.MovieListItemViewModel
@@ -19,8 +17,7 @@ class MovieListItemViewHolder(private val binding: HolderMovieListItemBinding) :
         binding.viewModel?.movieListItem = movieListItem
     }
 
-    fun bindImage(bitmap: Bitmap) {
-        Log.d("MovieListItemViewHolder", "bindImage()")
+    fun bindImage(bitmap: Bitmap?) {
         binding.movieImage.setImageBitmap(bitmap)
     }
 }

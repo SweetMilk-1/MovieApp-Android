@@ -1,9 +1,11 @@
 package ru.sweetmilk.movieapp.cases.movieList
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -11,8 +13,8 @@ import androidx.recyclerview.widget.ListAdapter
 import kotlinx.coroutines.launch
 import ru.sweetmilk.movieapp.api.models.MovieListItem
 import ru.sweetmilk.movieapp.cases.movieList.viewModel.MovieListFragmentViewModel
-import ru.sweetmilk.movieapp.databinding.FragmentMovieListBinding
 import ru.sweetmilk.movieapp.databinding.HolderMovieListItemBinding
+import ru.sweetmilk.movieapp.databinding.FragmentMovieListBinding
 
 
 class MovieListFragment : Fragment() {
@@ -37,8 +39,9 @@ class MovieListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getMovieListLiveData().observe(viewLifecycleOwner) {response ->
-            _adapter?.submitList(response.items)
+        viewModel.loadMovieList()
+        viewModel.movieList.observe(viewLifecycleOwner) { response ->
+            _adapter?.submitList(response?.items)
         }
     }
 
@@ -47,7 +50,7 @@ class MovieListFragment : Fragment() {
         _binding = null
     }
 
-    inner class MovieListAdapter: ListAdapter<MovieListItem, MovieListItemViewHolder>(
+    inner class MovieListAdapter : ListAdapter<MovieListItem, MovieListItemViewHolder>(
         MovieListItemDiffUtil()
     ) {
         private val layoutInflater = LayoutInflater.from(context)
@@ -61,8 +64,9 @@ class MovieListFragment : Fragment() {
             val item = getItem(position)
             holder.bind(item)
             lifecycleScope.launch {
-                val bitmap = viewModel.getMovieImage(item.id)
-                holder.bindImage(bitmap)
+                val bitmap = viewModel.loadMovieImage(item.id)
+
+                    holder.bindImage(bitmap)
             }
         }
     }
