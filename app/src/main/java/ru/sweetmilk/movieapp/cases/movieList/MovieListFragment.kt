@@ -1,29 +1,39 @@
 package ru.sweetmilk.movieapp.cases.movieList
 
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.ListAdapter
-import kotlinx.coroutines.launch
-import ru.sweetmilk.movieapp.api.models.MovieListItem
-import ru.sweetmilk.movieapp.cases.movieList.viewModel.MovieListFragmentViewModel
-import ru.sweetmilk.movieapp.databinding.HolderMovieListItemBinding
+import ru.sweetmilk.movieapp.MovieApp
 import ru.sweetmilk.movieapp.databinding.FragmentMovieListBinding
+import javax.inject.Inject
 
 
 class MovieListFragment : Fragment() {
-    private val viewModel: MovieListFragmentViewModel by viewModels()
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val viewModel: MovieListFragmentViewModel by viewModels<MovieListFragmentViewModel> {
+        viewModelFactory
+    }
 
     private var _binding: FragmentMovieListBinding? = null
     private val binding get() = _binding!!
 
     private var _adapter: MovieListAdapter? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        (requireActivity().application as MovieApp).appComponent.addMovieListComponent()
+            .create().inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,7 +41,11 @@ class MovieListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMovieListBinding.inflate(inflater, container, false)
-        _adapter = MovieListAdapter()
+        _adapter = MovieListAdapter(
+            requireContext(),
+            lifecycleScope,
+            viewModel::loadMovieImage
+        )
         binding.movieList.adapter = _adapter
 
         return binding.root
@@ -48,26 +62,5 @@ class MovieListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    inner class MovieListAdapter : ListAdapter<MovieListItem, MovieListItemViewHolder>(
-        MovieListItemDiffUtil()
-    ) {
-        private val layoutInflater = LayoutInflater.from(context)
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieListItemViewHolder {
-            val binding = HolderMovieListItemBinding.inflate(layoutInflater, parent, false)
-            return MovieListItemViewHolder(binding)
-        }
-
-        override fun onBindViewHolder(holder: MovieListItemViewHolder, position: Int) {
-            val item = getItem(position)
-            holder.bind(item)
-            lifecycleScope.launch {
-                val bitmap = viewModel.loadMovieImage(item.id)
-
-                    holder.bindImage(bitmap)
-            }
-        }
     }
 }

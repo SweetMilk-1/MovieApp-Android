@@ -7,14 +7,15 @@ import kotlinx.coroutines.withContext
 import ru.sweetmilk.movieapp.api.models.MovieListItem
 import ru.sweetmilk.movieapp.api.models.PagedResponse
 import ru.sweetmilk.movieapp.api.repositories.BaseRepository
-import ru.sweetmilk.movieapp.api.repositories.HttpResult
+import ru.sweetmilk.movieapp.api.repositories.HttpRequestStatus
+import javax.inject.Inject
+import javax.inject.Singleton
 
-private val LOG_TAG = "MovieRepository"
-
-class MovieRepository: BaseRepository()  {
-    private var movieApi: MovieApi = retrofit.create(MovieApi::class.java)
-
-    suspend fun getMoviesList(): HttpResult<PagedResponse <MovieListItem>?> = handleApiResponse {
+@Singleton
+class MovieRepository @Inject constructor(
+    private val movieApi: MovieApi
+): BaseRepository()  {
+    suspend fun getMoviesList(): HttpRequestStatus<PagedResponse <MovieListItem>?> = handleApiResponse {
         movieApi.getMovieList()
     }
 
@@ -23,7 +24,7 @@ class MovieRepository: BaseRepository()  {
             movieApi.getMovieImage(id)
         }
         when (result) {
-            is HttpResult.Success -> BitmapFactory.decodeStream(result.data?.byteStream())
+            is HttpRequestStatus.Success -> BitmapFactory.decodeStream(result.data?.byteStream())
             else -> null
         }
     }

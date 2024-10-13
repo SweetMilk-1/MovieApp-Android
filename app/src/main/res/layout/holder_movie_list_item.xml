@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="viewModel"
-            type="ru.sweetmilk.movieapp.cases.movieList.viewModel.MovieListItemViewModel" />
+            name="movieListItemViewModel"
+            type="ru.sweetmilk.movieapp.cases.movieList.MovieListItemViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
             android:id="@+id/movieTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.title}"
+            android:text="@{movieListItemViewModel.title}"
             tools:text="Название фильма"
             android:textStyle="bold"
             android:textSize="27sp"
@@ -30,7 +30,7 @@
             android:id="@+id/movieGenres"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.genres}"
+            android:text="@{movieListItemViewModel.genres}"
             tools:text="жанры"
             android:textSize="24sp"
             app:layout_constraintTop_toBottomOf="@id/movieTitle"
@@ -41,7 +41,7 @@
             android:id="@+id/movieId"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.id}"
+            android:text="@{movieListItemViewModel.id}"
             tools:text="00000-000000-00000000000000000"
             app:layout_constraintTop_toBottomOf="@id/movieGenres"
             app:layout_constraintEnd_toStartOf="@id/movie_image"
@@ -51,7 +51,7 @@
             android:id="@+id/moviePgInfo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.pgInfo}"
+            android:text="@{movieListItemViewModel.pgInfo}"
             tools:text="18+"
             app:layout_constraintTop_toBottomOf="@id/movieId"
             app:layout_constraintEnd_toStartOf="@id/movie_image"
@@ -62,7 +62,7 @@
             android:id="@+id/movieYear"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.releaseYear.toString()}"
+            android:text="@{movieListItemViewModel.releaseYear.toString()}"
             tools:text="2003"
             app:layout_constraintTop_toBottomOf="@id/moviePgInfo"
             app:layout_constraintEnd_toStartOf="@id/movie_image"

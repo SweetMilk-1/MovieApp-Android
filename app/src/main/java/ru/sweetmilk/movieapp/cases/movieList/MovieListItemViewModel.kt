@@ -1,4 +1,4 @@
-package ru.sweetmilk.movieapp.cases.movieList.viewModel
+package ru.sweetmilk.movieapp.cases.movieList
 
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable

@@ -27,7 +27,11 @@ android {
         dataBinding = true
         viewBinding = true
     }
+
+
 }
+
+
 
 dependencies {
 
@@ -42,5 +46,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.gson)
-    implementation(libs.glide)
+
+    implementation(libs.dagger)
+    kapt(libs.dagger.compiler)
 }
