@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.sweetmilk.movieapp.api.models.ErrorResponse
+import ru.sweetmilk.movieapp.api.models.GetMoviesRequest
 import ru.sweetmilk.movieapp.api.models.MovieListItem
 import ru.sweetmilk.movieapp.api.models.PagedResponse
 import ru.sweetmilk.movieapp.api.repositories.HttpResponse
@@ -21,21 +22,27 @@ sealed class MovieListFragmentState {
     class Error(val e: Throwable) : MovieListFragmentState()
 }
 
+
+
 class MovieListFragmentViewModel @Inject constructor(
     private val movieRepository: MovieRepository
 ) : ViewModel() {
 
-
+    private var request = GetMoviesRequest()
 
     private val _movieListFragmentState = MutableLiveData<MovieListFragmentState>(MovieListFragmentState.Idle)
     val movieListFragmentState: LiveData<MovieListFragmentState>
         get() = _movieListFragmentState
 
+    init {
+        loadMovieList()
+    }
+
     fun loadMovieList() {
         _movieListFragmentState.value = MovieListFragmentState.Loading
         viewModelScope.launch {
             try {
-                when (val response = movieRepository.getMoviesList()) {
+                when (val response = movieRepository.getMoviesList(request)) {
                     is HttpResponse.Success -> {
                         _movieListFragmentState.value = MovieListFragmentState.Success(response.data)
                     }
@@ -50,6 +57,15 @@ class MovieListFragmentViewModel @Inject constructor(
         }
     }
 
+    fun setSearchText(search: String?) {
+        request.search = search
+    }
+
+    fun setCurrentPage(page: Int) {
+        request.page = page
+    }
+
     suspend fun loadMovieImage(id: String): Bitmap? =
         movieRepository.getMovieImage(id)
+
 }
