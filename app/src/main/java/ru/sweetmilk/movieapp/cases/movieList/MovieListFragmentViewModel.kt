@@ -6,27 +6,46 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import ru.sweetmilk.movieapp.api.models.ErrorResponse
 import ru.sweetmilk.movieapp.api.models.MovieListItem
 import ru.sweetmilk.movieapp.api.models.PagedResponse
-import ru.sweetmilk.movieapp.api.repositories.HttpRequestStatus
+import ru.sweetmilk.movieapp.api.repositories.HttpResponse
 import ru.sweetmilk.movieapp.api.repositories.movie.MovieRepository
 import javax.inject.Inject
 
+sealed class MovieListFragmentState {
+    object Idle: MovieListFragmentState()
+    object Loading : MovieListFragmentState()
+    class Success(val data: PagedResponse<MovieListItem>?) : MovieListFragmentState()
+    class Failed(val errorCode: Int, val errorData: ErrorResponse) : MovieListFragmentState()
+    class Error(val e: Throwable) : MovieListFragmentState()
+}
+
 class MovieListFragmentViewModel @Inject constructor(
-    private val movieRepository : MovieRepository
+    private val movieRepository: MovieRepository
 ) : ViewModel() {
 
-    private val _movieList = MutableLiveData<PagedResponse<MovieListItem>?>(null)
-    val movieList: LiveData<PagedResponse<MovieListItem>?>
-        get() = _movieList
+
+
+    private val _movieListFragmentState = MutableLiveData<MovieListFragmentState>(MovieListFragmentState.Idle)
+    val movieListFragmentState: LiveData<MovieListFragmentState>
+        get() = _movieListFragmentState
 
     fun loadMovieList() {
+        _movieListFragmentState.value = MovieListFragmentState.Loading
         viewModelScope.launch {
-            when (val response = movieRepository.getMoviesList()) {
-                is HttpRequestStatus.Success -> {
-                    _movieList.value = response.data
+            try {
+                when (val response = movieRepository.getMoviesList()) {
+                    is HttpResponse.Success -> {
+                        _movieListFragmentState.value = MovieListFragmentState.Success(response.data)
+                    }
+                    is HttpResponse.Failed -> {
+                        _movieListFragmentState.value = MovieListFragmentState.Failed(response.statusCode, response.errorBody)
+                    }
                 }
-                else -> Unit
+            }
+            catch (e: Throwable){
+                _movieListFragmentState.value = MovieListFragmentState.Error(e)
             }
         }
     }

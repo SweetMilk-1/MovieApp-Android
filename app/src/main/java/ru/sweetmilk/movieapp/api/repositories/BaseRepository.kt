@@ -9,13 +9,13 @@ import ru.sweetmilk.movieapp.api.toErrorResponse
 abstract class BaseRepository(
     val defDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
-    protected suspend fun <T> handleApiResponse(apiMethod: suspend () -> Response<T?>): HttpRequestStatus<T?> =
+    protected suspend fun <T> handleApiResponse(apiMethod: suspend () -> Response<T?>): HttpResponse<T?> =
         withContext(defDispatcher) {
             val response = apiMethod.invoke()
             if (response.isSuccessful) {
-                HttpRequestStatus.Success(response.body())
+                HttpResponse.Success(response.body())
             } else {
-                HttpRequestStatus.Failed(response.code(), response.toErrorResponse())
+                HttpResponse.Failed(response.code(), response.toErrorResponse())
             }
         }
 }
