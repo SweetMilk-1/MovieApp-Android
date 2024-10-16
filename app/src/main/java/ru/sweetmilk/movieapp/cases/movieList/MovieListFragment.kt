@@ -149,7 +149,7 @@ class MovieListFragment : Fragment() {
         }
     }
 
-    fun hideKeyboard() {
+    private fun hideKeyboard() {
         val view = requireActivity().findViewById<View>(android.R.id.content)
         if (view != null) {
             val imm =

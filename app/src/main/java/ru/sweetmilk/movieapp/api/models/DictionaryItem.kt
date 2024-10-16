@@ -1,6 +1,8 @@
 package ru.sweetmilk.movieapp.api.models
 
+import java.util.UUID
+
 data class DictionaryItem(
-    var id : String,
+    var id : UUID,
     var name: String,
 )

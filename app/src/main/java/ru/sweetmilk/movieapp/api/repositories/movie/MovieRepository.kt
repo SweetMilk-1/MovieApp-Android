@@ -10,6 +10,7 @@ import ru.sweetmilk.movieapp.api.models.MovieListItem
 import ru.sweetmilk.movieapp.api.models.PagedResponse
 import ru.sweetmilk.movieapp.api.repositories.BaseRepository
 import ru.sweetmilk.movieapp.api.repositories.HttpResponse
+import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -25,9 +26,9 @@ class MovieRepository @Inject constructor(
         )
     }
 
-    suspend fun getMovieImage(id: String): Bitmap? = withContext(Dispatchers.Default) {
+    suspend fun getMovieImage(id: UUID): Bitmap? = withContext(Dispatchers.Default) {
         val result = handleApiResponse {
-            movieApi.getMovieImage(id)
+            movieApi.getMovieImage(id.toString())
         }
         when (result) {
             is HttpResponse.Success -> BitmapFactory.decodeStream(result.data?.byteStream())

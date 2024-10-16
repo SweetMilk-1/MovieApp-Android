@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">MovieApp</string>
     <string name="movie_list_label">Фильмы</string>
+    <string name="movie_details_label">Страница фильма</string>
 
     <string name="paging_text">Страница %d из %d</string>
     <string name="next_page_text">Следующая страница</string>

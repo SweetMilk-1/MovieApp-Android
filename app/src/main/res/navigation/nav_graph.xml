@@ -3,12 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/MovieListFragment">
+    app:startDestination="@id/movieListFragment">
 
     <fragment
-        android:id="@+id/MovieListFragment"
+        android:id="@+id/movieListFragment"
         android:name="ru.sweetmilk.movieapp.cases.movieList.MovieListFragment"
         android:label="@string/movie_list_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_movie_list">
+        <argument
+            android:name="ARG_MOVIE_ID"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_movieListFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/movieDetailsFragment"
+        android:name="ru.sweetmilk.movieapp.cases.movieDetails.MovieDetailsFragment"
+        android:label="@string/movie_details_label"
+        tools:layout="@layout/fragment_movie_details">
     </fragment>
 </navigation>

@@ -12,6 +12,7 @@ import ru.sweetmilk.movieapp.api.models.MovieListItem
 import ru.sweetmilk.movieapp.api.models.PagedResponse
 import ru.sweetmilk.movieapp.api.repositories.HttpResponse
 import ru.sweetmilk.movieapp.api.repositories.movie.MovieRepository
+import java.util.UUID
 import javax.inject.Inject
 
 sealed class MovieListFragmentState {
@@ -65,7 +66,7 @@ class MovieListFragmentViewModel @Inject constructor(
         request.page = page
     }
 
-    suspend fun loadMovieImage(id: String): Bitmap? =
+    suspend fun loadMovieImage(id: UUID): Bitmap? =
         movieRepository.getMovieImage(id)
 
 }

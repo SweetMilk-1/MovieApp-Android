@@ -9,11 +9,12 @@ import androidx.recyclerview.widget.ListAdapter
 import kotlinx.coroutines.launch
 import ru.sweetmilk.movieapp.api.models.MovieListItem
 import ru.sweetmilk.movieapp.databinding.HolderMovieListItemBinding
+import java.util.UUID
 
 class MovieListAdapter(
     context: Context,
     private val lifecycleScope: LifecycleCoroutineScope,
-    private val loadMovieImageFunc: suspend (id: String) -> Bitmap?
+    private val loadMovieImageFunc: suspend (id: UUID) -> Bitmap?
 ) : ListAdapter<MovieListItem, MovieListItemViewHolder>(
     MovieListItemDiffUtil()
 ) {

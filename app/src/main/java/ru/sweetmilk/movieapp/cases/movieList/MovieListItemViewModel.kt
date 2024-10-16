@@ -14,7 +14,7 @@ class MovieListItemViewModel : BaseObservable() {
         }
 
     @get:Bindable
-    val id: String? get() = movieListItem?.id
+    val id: String? get() = movieListItem?.id?.toString()
 
     @get:Bindable
     val title: String? get() = movieListItem?.title
