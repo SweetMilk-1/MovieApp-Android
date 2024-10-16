@@ -3,6 +3,7 @@ package ru.sweetmilk.movieapp.di
 import dagger.Component
 import dagger.Module
 import ru.sweetmilk.movieapp.api.repositories.movie.MovieApi
+import ru.sweetmilk.movieapp.cases.movieDetails.di.MovieDetailsComponent
 import ru.sweetmilk.movieapp.cases.movieList.di.MovieListComponent
 import javax.inject.Singleton
 
@@ -20,11 +21,13 @@ interface AppComponent {
     }
 
     fun addMovieListComponent() : MovieListComponent.Factory
+    fun addMovieDetailsComponent() : MovieDetailsComponent.Factory
 
     val movieApi: MovieApi
 }
 
 @Module(subcomponents = [
-    MovieListComponent::class
+    MovieListComponent::class,
+    MovieDetailsComponent::class
 ])
 object FragmentSubcomponentsModule

@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -36,8 +35,10 @@ class MovieListFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        (requireActivity().application as MovieApp).appComponent.addMovieListComponent()
-            .create().inject(this)
+        (requireActivity().application as MovieApp).appComponent
+            .addMovieListComponent()
+            .create()
+            .inject(this)
     }
 
     override fun onCreateView(
