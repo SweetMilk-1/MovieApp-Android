@@ -1,8 +1,9 @@
 package ru.sweetmilk.movieapp.cases.movieList
 
-import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +26,9 @@ class MovieListItemViewHolder(private val binding: HolderMovieListItemBinding) :
 
     fun bind(movieListItem: MovieListItem) {
         this.movieListItem = movieListItem
+
+        binding.movieImage.setImageDrawable(null)
+
         binding.movieId.text = movieListItem.id.toString()
         binding.movieTitle.text = movieListItem.title
 
@@ -56,8 +60,9 @@ class MovieListItemViewHolder(private val binding: HolderMovieListItemBinding) :
         return cal.get(Calendar.YEAR).toString()
     }
 
-    fun bindImage(bitmap: Bitmap?) {
-        binding.movieImage.setImageBitmap(bitmap)
+    fun bindImage(image: Drawable?) {
+        val drawable = image ?: ResourcesCompat.getDrawable(itemView.resources, R.drawable.no_photo, null)
+        binding.movieImage.setImageDrawable(drawable)
     }
 
     override fun onClick(v: View?) {

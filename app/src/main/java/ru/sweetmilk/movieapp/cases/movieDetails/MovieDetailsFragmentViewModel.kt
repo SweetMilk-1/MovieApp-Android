@@ -1,5 +1,7 @@
 package ru.sweetmilk.movieapp.cases.movieDetails
 
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,7 +21,6 @@ class MovieDetailsFragmentViewModel @Inject constructor(
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
-
     fun loadMovieDetails(movieId: UUID?): LiveData<Movie?> {
 
         val liveData = MutableLiveData<Movie>()
@@ -37,4 +38,7 @@ class MovieDetailsFragmentViewModel @Inject constructor(
 
         return liveData
     }
+
+    suspend fun loadMovieImage(id: UUID): Drawable? =
+        movieRepository.getMovieImage(id)
 }

@@ -27,11 +27,12 @@
                 android:id="@+id/movie_image"
                 android:layout_width="300dp"
                 android:layout_height="0dp"
-                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:background="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/catch_me_if_you_can" />
+                tools:src="@drawable/no_photo" />
 
             <TextView
                 android:id="@+id/movie_title"

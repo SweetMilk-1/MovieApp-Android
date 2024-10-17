@@ -1,6 +1,7 @@
 package ru.sweetmilk.movieapp.cases.movieList
 
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -66,7 +67,7 @@ class MovieListFragmentViewModel @Inject constructor(
         request.page = page
     }
 
-    suspend fun loadMovieImage(id: UUID): Bitmap? =
+    suspend fun loadMovieImage(id: UUID): Drawable? =
         movieRepository.getMovieImage(id)
 
 }

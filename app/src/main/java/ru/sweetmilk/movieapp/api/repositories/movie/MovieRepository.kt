@@ -2,6 +2,7 @@ package ru.sweetmilk.movieapp.api.repositories.movie
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
@@ -31,12 +32,13 @@ class MovieRepository @Inject constructor(
         movieApi.getMovie(movieId.toString())
     }
 
-    suspend fun getMovieImage(id: UUID): Bitmap? = withContext(Dispatchers.Default) {
+    suspend fun getMovieImage(id: UUID): Drawable? = withContext(Dispatchers.Default) {
+        delay(1000)
         val result = handleApiResponse {
             movieApi.getMovieImage(id.toString())
         }
         when (result) {
-            is HttpResponse.Success -> BitmapFactory.decodeStream(result.data?.byteStream())
+            is HttpResponse.Success -> Drawable.createFromStream(result.data?.byteStream(), null)
             else -> null
         }
     }

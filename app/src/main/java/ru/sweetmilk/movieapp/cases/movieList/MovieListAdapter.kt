@@ -1,7 +1,7 @@
 package ru.sweetmilk.movieapp.cases.movieList
 
 import android.content.Context
-import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleCoroutineScope
@@ -14,7 +14,7 @@ import java.util.UUID
 class MovieListAdapter(
     context: Context,
     private val lifecycleScope: LifecycleCoroutineScope,
-    private val loadMovieImageFunc: suspend (id: UUID) -> Bitmap?
+    private val loadMovieImageFunc: suspend (id: UUID) -> Drawable?
 ) : ListAdapter<MovieListItem, MovieListItemViewHolder>(
     MovieListItemDiffUtil()
 ) {
@@ -29,8 +29,8 @@ class MovieListAdapter(
         val item = getItem(position)
         holder.bind(item)
         lifecycleScope.launch {
-            val bitmap = loadMovieImageFunc.invoke(item.id)
-            holder.bindImage(bitmap)
+            val drawable = loadMovieImageFunc.invoke(item.id)
+            holder.bindImage(drawable)
         }
     }
 }

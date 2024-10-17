@@ -52,6 +52,7 @@ class MovieListFragment : Fragment() {
             lifecycleScope,
             viewModel::loadMovieImage
         )
+
         binding.movieList.adapter = adapter
         return binding.root
     }
@@ -123,10 +124,10 @@ class MovieListFragment : Fragment() {
 
     private fun handleSuccessState(response: PagedResponse<MovieListItem>?) {
         binding.apply {
-            movieList.isVisible = true
+            adapter.submitList(response?.items)
             progressBar.isVisible = false
             errorView.isVisible = false
-            adapter.submitList(response?.items)
+            movieList.isVisible = true
             pagingBar.setPagingParameters(
                 response?.page ?: 0,
                 response?.pageCount ?: 0

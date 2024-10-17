@@ -1,15 +1,23 @@
 package ru.sweetmilk.movieapp.cases.movieDetails
 
 import android.content.Context
+import android.content.res.Resources
+import android.content.res.Resources.Theme
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.icu.text.DateFormat
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import ru.sweetmilk.movieapp.MovieApp
 import ru.sweetmilk.movieapp.R
 import ru.sweetmilk.movieapp.api.models.Movie
@@ -18,7 +26,7 @@ import ru.sweetmilk.movieapp.utils.DictionaryToStringConverter
 import java.util.UUID
 import javax.inject.Inject
 
-class MovieDetailsFragment: Fragment() {
+class MovieDetailsFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -51,7 +59,19 @@ class MovieDetailsFragment: Fragment() {
         val movieId = arguments?.getSerializable(ARG_MOVIE_ID) as UUID?
 
         viewModel.loadMovieDetails(movieId).observe(viewLifecycleOwner) {
+            if (it == null)
+                return@observe
             updateUI(it)
+            lifecycleScope.launch {
+                val drawable = viewModel.loadMovieImage(it.id)
+                if (drawable != null) {
+                    binding.movieImage.setImageDrawable(drawable)
+                } else {
+                    val noPhotoDrawable =
+                        ResourcesCompat.getDrawable(resources, R.drawable.no_photo, null)
+                    binding.movieImage.setImageDrawable(noPhotoDrawable)
+                }
+            }
         }
 
         viewModel.isLoading.observe(viewLifecycleOwner) {
