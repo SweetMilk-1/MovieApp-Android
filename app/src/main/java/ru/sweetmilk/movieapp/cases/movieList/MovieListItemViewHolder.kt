@@ -29,7 +29,6 @@ class MovieListItemViewHolder(private val binding: HolderMovieListItemBinding) :
 
         binding.movieImage.setImageDrawable(null)
 
-        binding.movieId.text = movieListItem.id.toString()
         binding.movieTitle.text = movieListItem.title
 
         binding.moviePgInfo.apply {

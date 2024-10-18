@@ -21,7 +21,7 @@ class MovieRepository @Inject constructor(
     private val movieApi: MovieApi
 ): BaseRepository()  {
     suspend fun getMoviesList(request: GetMoviesRequest? = null): HttpResponse<PagedResponse <MovieListItem>?> = handleApiResponse {
-        delay(3000)
+        delay(1000)
         movieApi.getMovieList(
             search = request?.search,
             page = request?.page
@@ -33,7 +33,7 @@ class MovieRepository @Inject constructor(
     }
 
     suspend fun getMovieImage(id: UUID): Drawable? = withContext(Dispatchers.Default) {
-        delay(1000)
+        delay(200)
         val result = handleApiResponse {
             movieApi.getMovieImage(id.toString())
         }

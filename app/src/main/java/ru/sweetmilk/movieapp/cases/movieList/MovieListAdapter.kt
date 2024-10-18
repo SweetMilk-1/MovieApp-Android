@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.recyclerview.widget.ListAdapter
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import ru.sweetmilk.movieapp.api.models.MovieListItem
 import ru.sweetmilk.movieapp.databinding.HolderMovieListItemBinding
@@ -13,7 +14,7 @@ import java.util.UUID
 
 class MovieListAdapter(
     context: Context,
-    private val lifecycleScope: LifecycleCoroutineScope,
+    private val coroutineScope: CoroutineScope,
     private val loadMovieImageFunc: suspend (id: UUID) -> Drawable?
 ) : ListAdapter<MovieListItem, MovieListItemViewHolder>(
     MovieListItemDiffUtil()
@@ -28,7 +29,7 @@ class MovieListAdapter(
     override fun onBindViewHolder(holder: MovieListItemViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
-        lifecycleScope.launch {
+        coroutineScope.launch {
             val drawable = loadMovieImageFunc.invoke(item.id)
             holder.bindImage(drawable)
         }

@@ -1,11 +1,6 @@
 package ru.sweetmilk.movieapp.cases.movieDetails
 
 import android.content.Context
-import android.content.res.Resources
-import android.content.res.Resources.Theme
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.drawable.Drawable
 import android.icu.text.DateFormat
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -62,16 +57,7 @@ class MovieDetailsFragment : Fragment() {
             if (it == null)
                 return@observe
             updateUI(it)
-            lifecycleScope.launch {
-                val drawable = viewModel.loadMovieImage(it.id)
-                if (drawable != null) {
-                    binding.movieImage.setImageDrawable(drawable)
-                } else {
-                    val noPhotoDrawable =
-                        ResourcesCompat.getDrawable(resources, R.drawable.no_photo, null)
-                    binding.movieImage.setImageDrawable(noPhotoDrawable)
-                }
-            }
+
         }
 
         viewModel.isLoading.observe(viewLifecycleOwner) {
@@ -80,10 +66,22 @@ class MovieDetailsFragment : Fragment() {
         }
     }
 
-    private fun updateUI(movie: Movie?) {
-        binding.movieTitle.text = movie?.title
+    private fun updateUI(movie: Movie) {
+        lifecycleScope.launch {
+            val drawable = viewModel.loadMovieImage(movie.id)
+            if (drawable != null) {
+                binding.movieImage.setImageDrawable(drawable)
+            } else {
+                val noPhotoDrawable =
+                    ResourcesCompat.getDrawable(resources, R.drawable.no_photo, null)
+                binding.movieImage.setImageDrawable(noPhotoDrawable)
+            }
+        }
+
+
+        binding.movieTitle.text = movie.title
         binding.movieGenres.apply {
-            val genres = DictionaryToStringConverter.convert(movie?.genres)
+            val genres = DictionaryToStringConverter.convert(movie.genres)
             isVisible = !genres.isNullOrEmpty()
             text = getString(R.string.movie_genres, genres)
         }
@@ -91,28 +89,42 @@ class MovieDetailsFragment : Fragment() {
         binding.movieReleaseDate.apply {
             val dateString = DateFormat
                 .getPatternInstance(DateFormat.YEAR_ABBR_MONTH_DAY)
-                .format(movie?.releaseDate)
+                .format(movie.releaseDate)
 
             isVisible = !dateString.isNullOrEmpty()
             text = getString(R.string.movie_release_date, dateString)
         }
 
         binding.movieDuration.apply {
-            isVisible = (movie?.durationInMinutes ?: 0) > 0
-            text = getString(R.string.movie_duration, movie?.durationInMinutes)
+            isVisible = movie.durationInMinutes > 0
+            text = getString(R.string.movie_duration, movie.durationInMinutes)
         }
+
+        binding.movieDescriptionLabel.isVisible = movie.description.isNotEmpty()
 
         binding.movieDescription.apply {
-            isVisible = !movie?.description.isNullOrEmpty()
-            text = movie?.description
+            isVisible = movie.description.isNotEmpty()
+            text = movie.description
         }
 
-        binding.movieDescriptionLabel.isVisible = !movie?.description.isNullOrEmpty()
+        binding.movieActorsLabel.isVisible = movie.actors.isNotEmpty()
+
+        binding.movieActors.apply {
+            isVisible = movie.actors.isNotEmpty()
+            adapter = ActorsInMovieDetailsAdapter(
+                layoutInflater,
+                movie.actors,
+                lifecycleScope,
+                viewModel::loadActorPhoto
+            )
+        }
 
         binding.moviePgInfo.apply {
-            isVisible = !movie?.pgInfo.isNullOrEmpty()
-            text = getString(R.string.movie_pg_info, movie?.pgInfo)
+            isVisible = movie.pgInfo.isNotEmpty()
+            text = getString(R.string.movie_pg_info, movie.pgInfo)
         }
+
+
     }
 
     override fun onDestroyView() {
