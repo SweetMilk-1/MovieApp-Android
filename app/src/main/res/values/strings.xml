@@ -16,4 +16,9 @@
     <string name="movie_duration">Продолжительность: %d мин.</string>
     <string name="movie_pg_info">Возрастное ограничение: %s</string>
     <string name="actors_label">Актеры</string>
+
+    <string name="movies_tab_label">Фильмы</string>
+    <string name="users_tab_label">Вы</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Страница аутентификации</string>
 </resources>
