@@ -69,6 +69,6 @@ class MovieListItemViewHolder(private val binding: HolderMovieListItemBinding) :
             putSerializable(MovieDetailsFragment.ARG_MOVIE_ID, movieListItem?.id)
         }
         itemView.findNavController()
-            .navigate(R.id.action_movieListFragment_to_movieDetailsFragment, bundle)
+            .navigate(R.id.action_movie_list_to_details, bundle)
     }
 }
