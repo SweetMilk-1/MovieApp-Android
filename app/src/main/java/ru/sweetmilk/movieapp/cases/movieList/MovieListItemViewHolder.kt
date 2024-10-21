@@ -11,12 +11,14 @@ import ru.sweetmilk.movieapp.R
 import ru.sweetmilk.movieapp.api.models.MovieListItem
 import ru.sweetmilk.movieapp.cases.movieDetails.MovieDetailsFragment
 import ru.sweetmilk.movieapp.databinding.HolderMovieListItemBinding
+import ru.sweetmilk.movieapp.databinding.HolderMovieListItemLoadingBinding
 import ru.sweetmilk.movieapp.utils.DictionaryToStringConverter
 import java.util.Calendar
 
+abstract class MovieListItemViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
-class MovieListItemViewHolder(private val binding: HolderMovieListItemBinding) :
-    RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+class MovieViewHolder(private val binding: HolderMovieListItemBinding) :
+    MovieListItemViewHolder(binding.root), View.OnClickListener {
 
     private var movieListItem: MovieListItem? = null
 
@@ -60,7 +62,8 @@ class MovieListItemViewHolder(private val binding: HolderMovieListItemBinding) :
     }
 
     fun bindImage(image: Drawable?) {
-        val drawable = image ?: ResourcesCompat.getDrawable(itemView.resources, R.drawable.no_photo, null)
+        val drawable =
+            image ?: ResourcesCompat.getDrawable(itemView.resources, R.drawable.no_photo, null)
         binding.movieImage.setImageDrawable(drawable)
     }
 
@@ -71,4 +74,9 @@ class MovieListItemViewHolder(private val binding: HolderMovieListItemBinding) :
         itemView.findNavController()
             .navigate(R.id.action_movie_list_to_details, bundle)
     }
+}
+
+class LoadingViewHolder(private val binding: HolderMovieListItemLoadingBinding) :
+    MovieListItemViewHolder(binding.root) {
+
 }

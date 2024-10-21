@@ -1,73 +1,87 @@
 package ru.sweetmilk.movieapp.cases.movieList
 
-import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.sweetmilk.movieapp.api.models.ErrorResponse
 import ru.sweetmilk.movieapp.api.models.GetMoviesRequest
 import ru.sweetmilk.movieapp.api.models.MovieListItem
-import ru.sweetmilk.movieapp.api.models.PagedResponse
 import ru.sweetmilk.movieapp.api.repositories.HttpResponse
 import ru.sweetmilk.movieapp.api.repositories.movie.MovieRepository
 import java.util.UUID
 import javax.inject.Inject
 
-sealed class MovieListFragmentState {
-    object Idle: MovieListFragmentState()
-    object Loading : MovieListFragmentState()
-    class Success(val data: PagedResponse<MovieListItem>?) : MovieListFragmentState()
-    class Failed(val errorCode: Int, val errorData: ErrorResponse) : MovieListFragmentState()
-    class Error(val e: Throwable) : MovieListFragmentState()
-}
-
-
-
 class MovieListFragmentViewModel @Inject constructor(
     private val movieRepository: MovieRepository
 ) : ViewModel() {
+    var page: Int = 1
+        private set
 
-    private var request = GetMoviesRequest()
+    var pageCount: Int = INF_PAGE_COUNT
+        private set
 
-    private val _movieListFragmentState = MutableLiveData<MovieListFragmentState>(MovieListFragmentState.Idle)
-    val movieListFragmentState: LiveData<MovieListFragmentState>
-        get() = _movieListFragmentState
+    val isLastPage: Boolean get() = page >= pageCount
+
+    var search: String? = null
+
+    private val _movieListLiveData = MutableLiveData<List<MovieListItem>>()
+    val movieListLiveData: LiveData<List<MovieListItem>>
+        get() = _movieListLiveData
 
     init {
-        loadMovieList()
+        fetchFirstPage()
     }
 
-    fun loadMovieList() {
-        _movieListFragmentState.value = MovieListFragmentState.Loading
+    private fun loadMovieList() {
         viewModelScope.launch {
             try {
-                when (val response = movieRepository.getMoviesList(request)) {
+                val getMoviesRequest = GetMoviesRequest(
+                    page = page,
+                    search = search
+                )
+
+                when (val response = movieRepository.getMoviesList(getMoviesRequest)) {
                     is HttpResponse.Success -> {
-                        _movieListFragmentState.value = MovieListFragmentState.Success(response.data)
+                        page = response.data?.page ?: 1
+                        pageCount = response.data?.pageCount ?: 1
+
+                        val newMovieList = _movieListLiveData.value?.toMutableList() ?: mutableListOf()
+                        newMovieList.addAll(response.data?.items ?: listOf())
+                        _movieListLiveData.value = newMovieList
                     }
+
                     is HttpResponse.Failed -> {
-                        _movieListFragmentState.value = MovieListFragmentState.Failed(response.statusCode, response.errorBody)
+                        //TODO отобразить в снекбаре что произошла ошибка
                     }
                 }
-            }
-            catch (e: Throwable){
-                _movieListFragmentState.value = MovieListFragmentState.Error(e)
+            } catch (e: Throwable) {
+                Log.e("MovieListFragmentViewModel", e.message, e)
+                throw e
             }
         }
     }
 
-    fun setSearchText(search: String?) {
-        request.search = search
+    fun fetchFirstPage() {
+        page = 1
+        pageCount = INF_PAGE_COUNT
+        _movieListLiveData.value = listOf()
+        loadMovieList()
     }
 
-    fun setCurrentPage(page: Int) {
-        request.page = page
+    fun fetchNextPage() {
+        if (page == pageCount)
+            return
+        page++
+        loadMovieList()
     }
 
-    suspend fun loadMovieImage(id: UUID): Drawable? =
+    suspend fun fetchMovieImage(id: UUID): Drawable? =
         movieRepository.getMovieImage(id)
 
+    companion object {
+        private val INF_PAGE_COUNT = 1000000
+    }
 }

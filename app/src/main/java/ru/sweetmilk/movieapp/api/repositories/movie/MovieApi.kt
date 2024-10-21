@@ -15,7 +15,7 @@ interface MovieApi {
     suspend fun getMovieList(
         @Query("search") search: String? = null,
         @Query("page") page: Int? = null,
-        @Query("perPage") perPage: Int? = 4
+        @Query("perPage") perPage: Int? = 8
     ): Response<PagedResponse<MovieListItem>?>
 
     @GET("/Movie/{movieId}")
