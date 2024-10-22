@@ -4,6 +4,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
+import ru.sweetmilk.movieapp.api.HttpResponse
 import ru.sweetmilk.movieapp.api.toErrorResponse
 
 abstract class BaseRepository(

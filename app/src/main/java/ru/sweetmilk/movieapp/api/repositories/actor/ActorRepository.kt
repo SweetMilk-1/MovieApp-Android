@@ -5,7 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import ru.sweetmilk.movieapp.api.repositories.BaseRepository
-import ru.sweetmilk.movieapp.api.repositories.HttpResponse
+import ru.sweetmilk.movieapp.api.HttpResponse
 import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton

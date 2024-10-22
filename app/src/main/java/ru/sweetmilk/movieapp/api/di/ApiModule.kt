@@ -37,6 +37,7 @@ class ApiModule {
         return RetrofitFactory.create(gson)
     }
 
+
     @Provides
     fun getGson(): Gson {
         return GsonFactory.create()

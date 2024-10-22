@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import ru.sweetmilk.movieapp.api.models.ErrorResponse
 
 object RetrofitFactory {
-    val BASE_URL = "http://192.168.0.15:55002/"
+    val BASE_URL = "http://192.168.0.15/"
 
     fun create(gson: Gson) = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create(gson))

@@ -45,5 +45,7 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.gson)
     implementation(libs.dagger)
+    implementation(libs.androidx.preference.ktx)
+
     kapt(libs.dagger.compiler)
 }

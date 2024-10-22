@@ -100,7 +100,6 @@ class CustomSearchBarView @JvmOverloads constructor(
         super.onRestoreInstanceState(newState)
 
         updateUI()
-
     }
 
     companion object {

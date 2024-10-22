@@ -1,4 +1,4 @@
-package ru.sweetmilk.movieapp.api.repositories
+package ru.sweetmilk.movieapp.api
 
 import ru.sweetmilk.movieapp.api.models.ErrorResponse
 

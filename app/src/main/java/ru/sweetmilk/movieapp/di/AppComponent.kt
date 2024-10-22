@@ -1,5 +1,7 @@
 package ru.sweetmilk.movieapp.di
 
+import android.content.Context
+import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
 import ru.sweetmilk.movieapp.api.di.ApiModule
@@ -10,6 +12,7 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [
+    AppModule::class,
     ApiModule::class,
     ViewModelBuilderModule::class,
     FragmentSubcomponentsModule::class
@@ -18,13 +21,11 @@ interface AppComponent {
 
     @Component.Factory
     interface Factory {
-        fun create(): AppComponent
+        fun create(@BindsInstance applicationContext: Context): AppComponent
     }
 
     fun addMovieListComponent() : MovieListComponent.Factory
     fun addMovieDetailsComponent() : MovieDetailsComponent.Factory
-
-    val movieApi: MovieApi
 }
 
 @Module(subcomponents = [

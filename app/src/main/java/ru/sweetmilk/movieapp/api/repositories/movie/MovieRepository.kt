@@ -1,7 +1,5 @@
 package ru.sweetmilk.movieapp.api.repositories.movie
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -11,7 +9,7 @@ import ru.sweetmilk.movieapp.api.models.Movie
 import ru.sweetmilk.movieapp.api.models.MovieListItem
 import ru.sweetmilk.movieapp.api.models.PagedResponse
 import ru.sweetmilk.movieapp.api.repositories.BaseRepository
-import ru.sweetmilk.movieapp.api.repositories.HttpResponse
+import ru.sweetmilk.movieapp.api.HttpResponse
 import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -20,7 +18,7 @@ import javax.inject.Singleton
 class MovieRepository @Inject constructor(
     private val movieApi: MovieApi
 ): BaseRepository()  {
-    suspend fun getMoviesList(request: GetMoviesRequest? = null): HttpResponse<PagedResponse <MovieListItem>?> = handleApiResponse {
+    suspend fun getMoviesList(request: GetMoviesRequest? = null): HttpResponse<PagedResponse<MovieListItem>?> = handleApiResponse {
         delay(1000)
         movieApi.getMovieList(
             search = request?.search,

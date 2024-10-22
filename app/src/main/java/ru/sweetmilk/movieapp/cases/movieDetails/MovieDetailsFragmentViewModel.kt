@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.sweetmilk.movieapp.api.models.Movie
-import ru.sweetmilk.movieapp.api.repositories.HttpResponse
+import ru.sweetmilk.movieapp.api.HttpResponse
 import ru.sweetmilk.movieapp.api.repositories.actor.ActorRepository
 import ru.sweetmilk.movieapp.api.repositories.movie.MovieRepository
 import java.util.UUID
