@@ -1,5 +1,6 @@
 package ru.sweetmilk.movieapp.cases.movieList
 
+import SingleLiveEvent
 import android.graphics.drawable.Drawable
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -17,11 +18,8 @@ import javax.inject.Inject
 class MovieListFragmentViewModel @Inject constructor(
     private val movieRepository: MovieRepository
 ) : ViewModel() {
-    var page: Int = 1
-        private set
-
-    var pageCount: Int = INF_PAGE_COUNT
-        private set
+    private var page: Int = 1
+    private var pageCount: Int = INF_PAGE_COUNT
 
     val isLastPage: Boolean get() = page >= pageCount
 
@@ -31,9 +29,15 @@ class MovieListFragmentViewModel @Inject constructor(
     val movieListLiveData: LiveData<List<MovieListItem>>
         get() = _movieListLiveData
 
+    private val _failureMessage = MutableLiveData<String>()
+    val failureMessage: LiveData<String>
+        get() = _failureMessage
+
     init {
         fetchFirstPage()
     }
+
+    val failedMessageLiveEvent = SingleLiveEvent<String>()
 
     private fun loadMovieList() {
         viewModelScope.launch {
@@ -54,12 +58,14 @@ class MovieListFragmentViewModel @Inject constructor(
                     }
 
                     is HttpResponse.Failed -> {
-                        //TODO отобразить в снекбаре что произошла ошибка
+                        pageCount = page
+                        failedMessageLiveEvent.value = response.errorBody.message
                     }
                 }
             } catch (e: Throwable) {
+                pageCount = page
                 Log.e("MovieListFragmentViewModel", e.message, e)
-                throw e
+                failedMessageLiveEvent.value = e.message
             }
         }
     }

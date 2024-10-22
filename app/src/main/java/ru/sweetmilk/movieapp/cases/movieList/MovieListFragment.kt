@@ -12,6 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import ru.sweetmilk.movieapp.MovieApp
 import ru.sweetmilk.movieapp.databinding.FragmentMovieListBinding
+import ru.sweetmilk.movieapp.utils.KeyboardUtil
+import ru.sweetmilk.movieapp.utils.SnackBarUtil
 import javax.inject.Inject
 
 
@@ -57,7 +59,7 @@ class MovieListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.searchBar.setOnSearchListener {
-            hideKeyboard()
+            KeyboardUtil.hideKeyboard(requireActivity())
             viewModel.apply {
                 search = it
                 fetchFirstPage()
@@ -67,15 +69,10 @@ class MovieListFragment : Fragment() {
         viewModel.movieListLiveData.observe(viewLifecycleOwner) { list ->
             adapter.submitItems(list, viewModel.isLastPage)
         }
-    }
 
-
-    private fun hideKeyboard() {
-        val view = requireActivity().findViewById<View>(android.R.id.content)
-        if (view != null) {
-            val imm =
-                requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(view.windowToken, 0)
+        viewModel.failedMessageLiveEvent.observe(viewLifecycleOwner) {
+            adapter.onLoadingFailed()
+            SnackBarUtil.showSnackBar(requireView(), it)
         }
     }
 

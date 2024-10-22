@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical|start"
         android:padding="8dp"
-        android:text="text"
+        tools:text="text"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="@id/search_view"

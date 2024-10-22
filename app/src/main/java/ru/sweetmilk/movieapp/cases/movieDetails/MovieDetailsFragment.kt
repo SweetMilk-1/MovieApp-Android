@@ -17,7 +17,6 @@ import ru.sweetmilk.movieapp.MovieApp
 import ru.sweetmilk.movieapp.R
 import ru.sweetmilk.movieapp.api.models.Movie
 import ru.sweetmilk.movieapp.databinding.FragmentMovieDetailsBinding
-import ru.sweetmilk.movieapp.utils.DictionaryToStringConverter
 import java.util.UUID
 import javax.inject.Inject
 
@@ -81,8 +80,9 @@ class MovieDetailsFragment : Fragment() {
 
         binding.movieTitle.text = movie.title
         binding.movieGenres.apply {
-            val genres = DictionaryToStringConverter.convert(movie.genres)
-            isVisible = !genres.isNullOrEmpty()
+
+            val genres = movie.genres.joinToString(transform = { it.name }).lowercase()
+            isVisible = genres.isNotEmpty()
             text = getString(R.string.movie_genres, genres)
         }
 

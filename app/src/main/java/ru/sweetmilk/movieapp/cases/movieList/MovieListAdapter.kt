@@ -26,6 +26,10 @@ class MovieListAdapter(
     private var isLoading = false
     private var movieItems = listOf<MovieListItem>()
 
+    fun onLoadingFailed() {
+        submitItems(movieItems, true)
+    }
+
     fun submitItems(newMovieItems: List<MovieListItem>, isLastPage: Boolean) {
         this.isLastPage = isLastPage
         isLoading = false

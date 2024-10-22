@@ -12,7 +12,6 @@ import ru.sweetmilk.movieapp.api.models.MovieListItem
 import ru.sweetmilk.movieapp.cases.movieDetails.MovieDetailsFragment
 import ru.sweetmilk.movieapp.databinding.HolderMovieListItemBinding
 import ru.sweetmilk.movieapp.databinding.HolderMovieListItemLoadingBinding
-import ru.sweetmilk.movieapp.utils.DictionaryToStringConverter
 import java.util.Calendar
 
 abstract class MovieListItemViewHolder(view: View) : RecyclerView.ViewHolder(view)
@@ -45,8 +44,8 @@ class MovieViewHolder(private val binding: HolderMovieListItemBinding) :
         }
 
         binding.movieGenres.apply {
-            val genres = DictionaryToStringConverter.convert(movieListItem.genres)
-            isVisible = !genres.isNullOrEmpty()
+            val genres = movieListItem.genres.joinToString(transform = { it.name }).lowercase()
+            isVisible = genres.isNotEmpty()
             text = genres
         }
     }
@@ -76,7 +75,7 @@ class MovieViewHolder(private val binding: HolderMovieListItemBinding) :
     }
 }
 
-class LoadingViewHolder(private val binding: HolderMovieListItemLoadingBinding) :
+class LoadingViewHolder(binding: HolderMovieListItemLoadingBinding) :
     MovieListItemViewHolder(binding.root) {
 
 }
