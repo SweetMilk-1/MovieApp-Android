@@ -1,7 +1,7 @@
 package ru.sweetmilk.movieapp.cases.movieList
 
 import androidx.recyclerview.widget.DiffUtil
-import ru.sweetmilk.movieapp.api.models.MovieListItem
+import ru.sweetmilk.movieapp.api.models.movie.MovieListItem
 
 class MovieListDiffUtilCallback(
     private val oldList: List<MovieListItem>,

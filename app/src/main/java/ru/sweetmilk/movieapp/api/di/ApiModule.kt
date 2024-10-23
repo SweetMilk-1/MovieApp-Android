@@ -6,6 +6,7 @@ import dagger.Provides
 import retrofit2.Retrofit
 import ru.sweetmilk.movieapp.api.GsonFactory
 import ru.sweetmilk.movieapp.api.RetrofitFactory
+import ru.sweetmilk.movieapp.api.auth.AuthApi
 import ru.sweetmilk.movieapp.api.repositories.actor.ActorApi
 import ru.sweetmilk.movieapp.api.repositories.movie.MovieApi
 import javax.inject.Singleton
@@ -27,6 +28,14 @@ class ApiModule {
         retrofit: Retrofit
     ): ActorApi {
         return retrofit.create(ActorApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun getAuthApi(
+        retrofit: Retrofit
+    ): AuthApi {
+        return retrofit.create(AuthApi::class.java)
     }
 
     @Singleton

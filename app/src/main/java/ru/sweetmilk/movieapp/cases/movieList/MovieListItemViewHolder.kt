@@ -8,7 +8,7 @@ import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import ru.sweetmilk.movieapp.R
-import ru.sweetmilk.movieapp.api.models.MovieListItem
+import ru.sweetmilk.movieapp.api.models.movie.MovieListItem
 import ru.sweetmilk.movieapp.cases.movieDetails.MovieDetailsFragment
 import ru.sweetmilk.movieapp.databinding.HolderMovieListItemBinding
 import ru.sweetmilk.movieapp.databinding.HolderMovieListItemLoadingBinding

@@ -15,7 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import ru.sweetmilk.movieapp.MovieApp
 import ru.sweetmilk.movieapp.R
-import ru.sweetmilk.movieapp.api.models.Movie
+import ru.sweetmilk.movieapp.api.models.movie.Movie
 import ru.sweetmilk.movieapp.databinding.FragmentMovieDetailsBinding
 import java.util.UUID
 import javax.inject.Inject

@@ -1,5 +1,6 @@
-package ru.sweetmilk.movieapp.api.models
+package ru.sweetmilk.movieapp.api.models.movie
 
+import ru.sweetmilk.movieapp.api.models.DictionaryItem
 import java.util.Date
 import java.util.UUID
 

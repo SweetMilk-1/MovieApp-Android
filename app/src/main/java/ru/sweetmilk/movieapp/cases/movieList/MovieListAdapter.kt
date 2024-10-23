@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import ru.sweetmilk.movieapp.api.models.MovieListItem
+import ru.sweetmilk.movieapp.api.models.movie.MovieListItem
 import ru.sweetmilk.movieapp.databinding.HolderMovieListItemBinding
 import ru.sweetmilk.movieapp.databinding.HolderMovieListItemLoadingBinding
 import java.security.InvalidParameterException

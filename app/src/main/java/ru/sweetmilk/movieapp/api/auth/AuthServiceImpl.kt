@@ -5,7 +5,8 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class AuthServiceImpl @Inject constructor(
-    private val tokenStorage: TokenStorage
+    private val tokenStorage: TokenStorage,
+    private val authApi: AuthApi
 ) : AuthService {
     override suspend fun authorize(login: String, password: String) = withContext(Dispatchers.IO) {
         TODO("Not yet implemented")

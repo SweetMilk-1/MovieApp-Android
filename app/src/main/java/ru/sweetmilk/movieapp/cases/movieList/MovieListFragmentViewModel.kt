@@ -8,8 +8,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.sweetmilk.movieapp.api.models.GetMoviesRequest
-import ru.sweetmilk.movieapp.api.models.MovieListItem
+import ru.sweetmilk.movieapp.api.models.movie.GetMoviesRequest
+import ru.sweetmilk.movieapp.api.models.movie.MovieListItem
 import ru.sweetmilk.movieapp.api.HttpResponse
 import ru.sweetmilk.movieapp.api.repositories.movie.MovieRepository
 import java.util.UUID

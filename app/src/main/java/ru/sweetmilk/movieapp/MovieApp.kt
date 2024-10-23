@@ -10,6 +10,6 @@ open class MovieApp : Application() {
     }
 
     open fun initializeComponent(): AppComponent {
-        return DaggerAppComponent.factory().create()
+        return DaggerAppComponent.factory().create(this)
     }
 }
