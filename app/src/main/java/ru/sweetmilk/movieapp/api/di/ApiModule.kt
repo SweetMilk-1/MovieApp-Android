@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
+import ru.sweetmilk.movieapp.api.AddAuthHeaderInterceptor
 import ru.sweetmilk.movieapp.api.GsonFactory
 import ru.sweetmilk.movieapp.api.RetrofitFactory
 import ru.sweetmilk.movieapp.api.auth.AuthApi
@@ -41,9 +42,10 @@ class ApiModule {
     @Singleton
     @Provides
     fun getRetrofit(
-        gson: Gson
+        gson: Gson,
+        addAuthHeaderInterceptor: AddAuthHeaderInterceptor
     ): Retrofit {
-        return RetrofitFactory.create(gson)
+        return RetrofitFactory.create(gson, addAuthHeaderInterceptor)
     }
 
 
