@@ -6,7 +6,7 @@
         android:title="@string/movies_tab_label" />
 
     <item
-        android:id="@+id/navigation_user_auth"
+        android:id="@+id/navigation_log_in_choose"
         android:icon="@drawable/ic_bottom_nav_bar_user"
         android:title="@string/users_tab_label" />
 </menu>

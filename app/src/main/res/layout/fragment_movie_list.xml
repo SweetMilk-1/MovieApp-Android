@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <ru.sweetmilk.movieapp.view.customSearchBarView.CustomSearchBarView
+    <ru.sweetmilk.movieapp.view.CustomSearchBarView
         android:id="@+id/search_bar"
         android:padding="4dp"
         android:layout_width="match_parent"

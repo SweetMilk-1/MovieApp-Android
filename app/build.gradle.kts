@@ -46,6 +46,10 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.dagger)
     implementation(libs.androidx.preference.ktx)
+    implementation(libs.androidx.legacy.support.v4)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.fragment.ktx)
 
     kapt(libs.dagger.compiler)
 }

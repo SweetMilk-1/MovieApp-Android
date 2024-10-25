@@ -5,9 +5,9 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
 import ru.sweetmilk.movieapp.api.di.ApiModule
+import ru.sweetmilk.movieapp.cases.logIn.di.LogInComponent
 import ru.sweetmilk.movieapp.cases.movieDetails.di.MovieDetailsComponent
 import ru.sweetmilk.movieapp.cases.movieList.di.MovieListComponent
-import ru.sweetmilk.movieapp.cases.userAuth.di.UserAuthComponent
 import javax.inject.Singleton
 
 @Singleton
@@ -28,14 +28,14 @@ interface AppComponent {
 
     fun addMovieListComponent(): MovieListComponent.Factory
     fun addMovieDetailsComponent(): MovieDetailsComponent.Factory
-    fun addUserAuthComponent(): UserAuthComponent.Factory
+    fun logInComponent(): LogInComponent.Factory
 }
 
 @Module(
     subcomponents = [
         MovieListComponent::class,
         MovieDetailsComponent::class,
-        UserAuthComponent::class
+        LogInComponent::class
     ]
 )
 object FragmentSubcomponentsModule

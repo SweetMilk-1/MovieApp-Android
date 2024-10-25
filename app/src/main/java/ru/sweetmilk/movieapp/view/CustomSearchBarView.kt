@@ -1,4 +1,4 @@
-package ru.sweetmilk.movieapp.view.customSearchBarView
+package ru.sweetmilk.movieapp.view
 
 import android.content.Context
 import android.os.Bundle
