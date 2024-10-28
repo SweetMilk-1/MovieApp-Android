@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_movie_list,
-                R.id.navigation_log_in_choose
+                R.id.navigation_user_page
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

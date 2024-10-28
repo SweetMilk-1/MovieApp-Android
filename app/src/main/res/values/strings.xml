@@ -19,8 +19,8 @@
 
     <string name="movies_tab_label">Фильмы</string>
     <string name="users_tab_label">Вы</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="log_in_choose_label">Вход или регистрация</string>
+
+    <string name="user_page_label">Страница пользователя</string>
     <string name="log_in_button">Войти</string>
     <string name="sign_in_button">Зарегистрироваться</string>
     <string name="user_auth_text">Чтобы расширить функционал приложения необходимо войти в свой аккаунт</string>

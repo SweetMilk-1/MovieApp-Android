@@ -36,6 +36,7 @@ class AuthService @Inject constructor(
             if (response.isSuccessful) {
                 val tokens = response.body()
                     ?: throw InvalidObjectException("Auth failed because server did return null object")
+                tokenStorage.setUserId(tokens.userId)
                 tokenStorage.setAccessToken(tokens.accessToken)
                 tokenStorage.setRefreshToken(tokens.refreshToken)
                 true

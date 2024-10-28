@@ -2,7 +2,7 @@ package ru.sweetmilk.movieapp.validation
 
 import ru.sweetmilk.movieapp.validation.constraints.Constraint
 
-object ConstrainHandler {
+object ConstraintHandler {
     fun handle(value: Any?, constraints: Array<Constraint>?): ValidationError? {
         if (constraints != null) {
             for (constraint  in constraints) {

@@ -1,41 +1,45 @@
-package ru.sweetmilk.movieapp.cases.logInChoose
+package ru.sweetmilk.movieapp.cases.authChoose
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import ru.sweetmilk.movieapp.R
-import ru.sweetmilk.movieapp.databinding.FragmentLogInChooseBinding
+import ru.sweetmilk.movieapp.databinding.FragmentAuthChooseBinding
 
 
-class LogInChooseFragment : Fragment() {
-    private var _binding: FragmentLogInChooseBinding? = null
+class AuthChooseFragment : Fragment() {
+    private var _binding: FragmentAuthChooseBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLogInChooseBinding.inflate(inflater, container, false)
+        _binding = FragmentAuthChooseBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.logInButton.setOnClickListener{
-            requireView().findNavController()
-                .navigate(R.id.action_choose_to_log_in)
+            //TODO перекинуть на страницу авторизации
         }
 
         binding.signInButton.setOnClickListener{
-            //перекинуть на страницу регистрации
+            //TODO перекинуть на страницу регистрации
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        fun newInstance(): AuthChooseFragment{
+            val fragment = AuthChooseFragment()
+            return fragment
+        }
     }
 }

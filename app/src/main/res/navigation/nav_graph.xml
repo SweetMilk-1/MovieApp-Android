@@ -23,20 +23,8 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_log_in_choose"
-        android:name="ru.sweetmilk.movieapp.cases.logInChoose.LogInChooseFragment"
-        android:label="@string/log_in_choose_label"
-        tools:layout="@layout/fragment_log_in_choose">
-
-        <action
-            android:id="@+id/action_choose_to_log_in"
-            app:destination="@id/navigation_log_in" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/navigation_log_in"
-        android:name="ru.sweetmilk.movieapp.cases.logIn.LogInFragment"
-        android:label="@string/log_in_label"
-        tools:layout="@layout/fragment_log_in">
-    </fragment>
+        android:id="@+id/navigation_user_page"
+        android:name="ru.sweetmilk.movieapp.cases.userPage.UserPageFragment"
+        android:label="@string/user_page_label"
+        tools:layout="@layout/fragment_user_page"/>
 </navigation>
