@@ -2,6 +2,7 @@
     <string name="app_name">MovieApp</string>
     <string name="movie_list_label">Фильмы</string>
     <string name="movie_details_label">Страница фильма</string>
+    <string name="user_page_label">Страница пользователя</string>
 
     <string name="paging_text">Страница %d из %d</string>
     <string name="next_page_text">Следующая страница</string>
@@ -20,11 +21,13 @@
     <string name="movies_tab_label">Фильмы</string>
     <string name="users_tab_label">Вы</string>
 
-    <string name="user_page_label">Страница пользователя</string>
-    <string name="log_in_button">Войти</string>
-    <string name="sign_in_button">Зарегистрироваться</string>
-    <string name="user_auth_text">Чтобы расширить функционал приложения необходимо войти в свой аккаунт</string>
-    <string name="log_in_label">Вход</string>
+
+    <string name="auth_button">Войти</string>
+    <string name="registration_button">Зарегистрироваться</string>
+    <string name="auth_choose_text">Чтобы расширить функционал приложения необходимо войти в свой аккаунт</string>
+    <string name="auth_label">Вход</string>
     <string name="login_field_hint">Логин</string>
     <string name="password_field_hint">Пароль</string>
+    <string name="field_is_required">Это поле обязательно\n</string>
+    <string name="field_must_be_more_then">Значение должно быть не короче %d символов</string>
 </resources>

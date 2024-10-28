@@ -27,14 +27,10 @@ class UserDataFragment : Fragment() {
     companion object {
         private const val USER_ID_ARG = "USER_ID_ARG"
 
-        fun newInstance(userId: UUID): UserDataFragment{
-            val args = Bundle().apply {
+        fun getArgsBundle(userId: UUID): Bundle {
+            return Bundle().apply {
                 putString(USER_ID_ARG, userId.toString())
             }
-
-            val fragment = UserDataFragment()
-            fragment.arguments = args
-            return fragment
         }
     }
 }

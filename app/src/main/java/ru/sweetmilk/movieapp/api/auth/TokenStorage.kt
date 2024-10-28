@@ -15,7 +15,7 @@ class TokenStorage @Inject constructor(
         return if (userIdStr.isNullOrEmpty()) null else UUID.fromString(userIdStr)
     }
 
-    fun setUserId(userId: UUID) {
+    fun setUserId(userId: UUID?) {
         sharedPreferences
             .edit()
             .putString(USER_ID_KEY, userId.toString())
@@ -26,7 +26,7 @@ class TokenStorage @Inject constructor(
         return sharedPreferences.getString(ACCESS_TOKEN_KEY, null)
     }
 
-    fun setAccessToken(token: String) {
+    fun setAccessToken(token: String?) {
         sharedPreferences
             .edit()
             .putString(ACCESS_TOKEN_KEY, token)
@@ -37,7 +37,7 @@ class TokenStorage @Inject constructor(
         return sharedPreferences.getString(REFRESH_TOKEN_KEY, null)
     }
 
-    fun setRefreshToken(token: String) {
+    fun setRefreshToken(token: String?) {
         sharedPreferences
             .edit()
             .putString(REFRESH_TOKEN_KEY, token)

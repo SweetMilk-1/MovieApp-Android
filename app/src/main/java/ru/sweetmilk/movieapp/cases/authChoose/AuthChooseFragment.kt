@@ -1,10 +1,15 @@
 package ru.sweetmilk.movieapp.cases.authChoose
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import ru.sweetmilk.movieapp.R
+import ru.sweetmilk.movieapp.api.auth.TokenStorage
+import ru.sweetmilk.movieapp.cases.auth.AuthFragment
 import ru.sweetmilk.movieapp.databinding.FragmentAuthChooseBinding
 
 
@@ -22,11 +27,11 @@ class AuthChooseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.logInButton.setOnClickListener{
-            //TODO перекинуть на страницу авторизации
+        binding.logInButton.setOnClickListener {
+            findNavController().navigate(R.id.action_auth_choose_to_auth)
         }
 
-        binding.signInButton.setOnClickListener{
+        binding.signInButton.setOnClickListener {
             //TODO перекинуть на страницу регистрации
         }
     }
@@ -37,7 +42,7 @@ class AuthChooseFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(): AuthChooseFragment{
+        fun newInstance(): AuthChooseFragment {
             val fragment = AuthChooseFragment()
             return fragment
         }

@@ -19,12 +19,52 @@
         android:id="@+id/navigation_movie_details"
         android:name="ru.sweetmilk.movieapp.cases.movieDetails.MovieDetailsFragment"
         android:label="@string/movie_details_label"
-        tools:layout="@layout/fragment_movie_details">
-    </fragment>
+        tools:layout="@layout/fragment_movie_details" />
 
     <fragment
         android:id="@+id/navigation_user_page"
         android:name="ru.sweetmilk.movieapp.cases.userPage.UserPageFragment"
         android:label="@string/user_page_label"
-        tools:layout="@layout/fragment_user_page"/>
+        tools:layout="@layout/fragment_user_page">
+
+        <action
+            android:id="@+id/action_user_page_to_user_data"
+            app:destination="@id/navigation_user_data" />
+
+        <action
+            android:id="@+id/action_user_page_to_auth_choose"
+            app:destination="@id/navigation_auth_choose" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_user_data"
+        android:name="ru.sweetmilk.movieapp.cases.userData.UserDataFragment"
+        android:label="@string/user_page_label"
+        tools:layout="@layout/fragment_user_data" />
+
+    <fragment
+        android:id="@+id/navigation_auth_choose"
+        android:name="ru.sweetmilk.movieapp.cases.authChoose.AuthChooseFragment"
+        android:label="@string/user_page_label"
+        tools:layout="@layout/fragment_auth_choose">
+
+        <action
+            android:id="@+id/action_auth_choose_to_auth"
+            app:destination="@id/navigation_auth" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_auth"
+        android:name="ru.sweetmilk.movieapp.cases.auth.AuthFragment"
+        android:label="@string/user_page_label"
+        tools:layout="@layout/fragment_auth" >
+
+        <action
+            android:id="@+id/action_auth_to_user_page"
+            app:destination="@id/navigation_user_page"
+            app:popUpTo="@id/navigation_user_page"
+            app:popUpToInclusive="false"/>
+    </fragment>
 </navigation>

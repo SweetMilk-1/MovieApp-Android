@@ -34,7 +34,9 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_movie_list,
-                R.id.navigation_user_page
+                R.id.navigation_user_page,
+                R.id.navigation_auth_choose,
+                R.id.navigation_user_data,
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

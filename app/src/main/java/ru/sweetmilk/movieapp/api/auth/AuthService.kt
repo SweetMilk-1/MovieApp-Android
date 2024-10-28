@@ -4,6 +4,7 @@ import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
+import ru.sweetmilk.movieapp.api.HttpResponse
 import ru.sweetmilk.movieapp.api.models.auth.AuthRequest
 import ru.sweetmilk.movieapp.api.models.auth.AuthTokens
 import ru.sweetmilk.movieapp.api.toErrorResponse
@@ -25,26 +26,21 @@ class AuthService @Inject constructor(
 
     suspend fun updateByRefreshToken() = withContext(Dispatchers.IO) {
         val refreshToken = tokenStorage.getRefreshToken()
-        if (refreshToken != null) {
-            val response = authApi.updateTokens(refreshToken)
-            handleAuthResponseAndStoreTokens(response)
-        } else false
+
+        val response = authApi.updateTokens(refreshToken ?: "")
+        handleAuthResponseAndStoreTokens(response)
     }
 
-    private fun handleAuthResponseAndStoreTokens(response: Response<AuthTokens>) =
-        try {
-            if (response.isSuccessful) {
-                val tokens = response.body()
-                    ?: throw InvalidObjectException("Auth failed because server did return null object")
-                tokenStorage.setUserId(tokens.userId)
-                tokenStorage.setAccessToken(tokens.accessToken)
-                tokenStorage.setRefreshToken(tokens.refreshToken)
-                true
-            } else {
-                throw InvalidObjectException("Request Fail: " + response.toErrorResponse().message)
-            }
-        } catch (e: Throwable) {
-            Log.e(LOG_TAG, e.message, e)
-            false
+    private fun handleAuthResponseAndStoreTokens(response: Response<AuthTokens>): HttpResponse<Nothing?> {
+        if (response.isSuccessful) {
+            val tokens = response.body()
+                ?: throw InvalidObjectException("Auth failed because server did return null object")
+            tokenStorage.setUserId(tokens.userId)
+            tokenStorage.setAccessToken(tokens.accessToken)
+            tokenStorage.setRefreshToken(tokens.refreshToken)
+            return HttpResponse.Success(null)
+        } else {
+            return HttpResponse.Failed(response.code(), response.toErrorResponse())
         }
+    }
 }

@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import ru.sweetmilk.movieapp.MovieApp
 import ru.sweetmilk.movieapp.R
 import ru.sweetmilk.movieapp.cases.authChoose.AuthChooseFragment
@@ -28,31 +30,22 @@ class UserPageFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (requireActivity().application as MovieApp)
-            .appComponent
+        (requireActivity().application as MovieApp).appComponent
             .addUserPageComponent()
             .create()
             .inject(this)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentUserPageBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         val userId = viewModel.getUserId()
-        val contentFragment = if (userId == null) {
-            AuthChooseFragment.newInstance()
+        val navController = findNavController()
+        if (userId == null) {
+            navController.navigate(R.id.action_user_page_to_auth_choose)
         } else {
-            UserDataFragment.newInstance(userId)
-        }
-        childFragmentManager.commit {
-            replace(R.id.user_page_fragment_container, contentFragment)
+            val args = UserDataFragment.getArgsBundle(userId)
+            navController
+                .navigate(R.id.action_user_page_to_user_data, args)
         }
     }
 
