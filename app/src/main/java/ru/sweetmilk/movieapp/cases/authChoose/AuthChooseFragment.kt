@@ -29,7 +29,7 @@ class AuthChooseFragment : Fragment() {
         }
 
         binding.signInButton.setOnClickListener {
-            //TODO перекинуть на страницу регистрации
+            findNavController().navigate(R.id.action_auth_choose_to_create_user)
         }
     }
 

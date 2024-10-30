@@ -28,11 +28,16 @@
     <string name="auth_label">Вход</string>
     <string name="login_field_hint">Логин</string>
     <string name="password_field_hint">Пароль</string>
-    <string name="field_is_required">Это поле обязательно\n</string>
+    <string name="field_is_required">Это поле обязательно</string>
+    <string name="invalid_email">Неправильный email</string>
     <string name="field_must_be_more_then">Значение должно быть не короче %d символов</string>
     <string name="log_out_button">Выйти</string>
     <string name="is_admin_check_box_text">Админ</string>
     <string name="log_out_dialog_message">Вы действительно хотите выйти из аккаунта?</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
+    <string name="email_field_hint">Email</string>
+    <string name="repeat_password_field_hint">Повторите пароль</string>
+    <string name="passwors_not_same">Пароли не совпадают</string>
+    <string name="user_created_message">Пользователь создан успешно!</string>
 </resources>
