@@ -15,10 +15,17 @@ class TokenStorage @Inject constructor(
         return if (userIdStr.isNullOrEmpty()) null else UUID.fromString(userIdStr)
     }
 
-    fun setUserId(userId: UUID?) {
+    fun setUserId(userId: UUID) {
         sharedPreferences
             .edit()
             .putString(USER_ID_KEY, userId.toString())
+            .apply()
+    }
+
+    fun removeUserId() {
+        sharedPreferences
+            .edit()
+            .remove(USER_ID_KEY)
             .apply()
     }
 

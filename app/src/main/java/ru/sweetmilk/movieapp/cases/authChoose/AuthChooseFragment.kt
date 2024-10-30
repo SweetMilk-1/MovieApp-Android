@@ -1,6 +1,5 @@
 package ru.sweetmilk.movieapp.cases.authChoose
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.sweetmilk.movieapp.R
-import ru.sweetmilk.movieapp.api.auth.TokenStorage
-import ru.sweetmilk.movieapp.cases.auth.AuthFragment
 import ru.sweetmilk.movieapp.databinding.FragmentAuthChooseBinding
 
 

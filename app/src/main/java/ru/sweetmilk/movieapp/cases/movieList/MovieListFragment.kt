@@ -9,10 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import ru.sweetmilk.movieapp.MainActivity
 import ru.sweetmilk.movieapp.MovieApp
 import ru.sweetmilk.movieapp.databinding.FragmentMovieListBinding
 import ru.sweetmilk.movieapp.utils.KeyboardUtil
-import ru.sweetmilk.movieapp.utils.SnackBarUtil
 import javax.inject.Inject
 
 
@@ -71,7 +71,7 @@ class MovieListFragment : Fragment() {
 
         viewModel.failedMessageLiveEvent.observe(viewLifecycleOwner) {
             adapter.onLoadingFailed()
-            SnackBarUtil.showSnackBar(requireView(), it)
+            (requireActivity() as MainActivity).showSnackBar(it)
         }
     }
 

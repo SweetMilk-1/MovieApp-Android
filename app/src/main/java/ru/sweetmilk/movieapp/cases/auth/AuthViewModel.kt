@@ -29,7 +29,9 @@ class AuthViewModel @Inject constructor(
     val isLoading: LiveData<Boolean> get() = _isLoading
 
     val isAuthorizedEvent = SingleLiveEvent<Boolean>()
-    val serverMessageEvent = SingleLiveEvent<String>()
+
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> get() = _errorMessage
 
     val constraintsMap = mapOf(
         Pair(
@@ -61,7 +63,7 @@ class AuthViewModel @Inject constructor(
         _isLoading.value = true
         viewModelScope.launch {
             when (val response = authService.authorize(login!!, password!!)) {
-                is HttpResponse.Failed -> serverMessageEvent.value = response.errorBody.message
+                is HttpResponse.Failed -> _errorMessage.value = response.errorBody.message
                 is HttpResponse.Success -> isAuthorizedEvent.value = true
             }
             _isLoading.value = false

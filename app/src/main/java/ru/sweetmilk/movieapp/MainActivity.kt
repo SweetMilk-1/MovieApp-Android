@@ -1,5 +1,6 @@
 package ru.sweetmilk.movieapp
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -22,12 +23,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         val navView = binding.bottomNavigationView
         navController = findNavController(R.id.nav_host_fragment_content_main)
@@ -57,5 +59,11 @@ class MainActivity : AppCompatActivity() {
         return navController
             .navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
+    }
+
+    fun showSnackBar(snackBarText: String?) {
+        Snackbar.make(binding.root, snackBarText ?: "", Snackbar.LENGTH_SHORT)
+            .setAnchorView(binding.bottomNavigationView)
+            .show()
     }
 }

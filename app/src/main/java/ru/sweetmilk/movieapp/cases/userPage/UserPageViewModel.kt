@@ -7,8 +7,6 @@ import javax.inject.Inject
 
 class UserPageViewModel @Inject constructor(
     private val tokenStorage: TokenStorage
-): ViewModel() {
-
+) : ViewModel() {
     fun getUserId(): UUID? = tokenStorage.getUserId()
-
 }

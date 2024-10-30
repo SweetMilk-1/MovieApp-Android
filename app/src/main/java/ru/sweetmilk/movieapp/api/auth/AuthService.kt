@@ -1,6 +1,5 @@
 package ru.sweetmilk.movieapp.api.auth
 
-import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
@@ -11,8 +10,6 @@ import ru.sweetmilk.movieapp.api.toErrorResponse
 import java.io.InvalidObjectException
 import javax.inject.Inject
 import javax.inject.Singleton
-
-private val LOG_TAG = "AuthServiceImpl"
 
 @Singleton
 class AuthService @Inject constructor(
@@ -42,5 +39,11 @@ class AuthService @Inject constructor(
         } else {
             return HttpResponse.Failed(response.code(), response.toErrorResponse())
         }
+    }
+
+    fun logOut() {
+        tokenStorage.removeUserId()
+        tokenStorage.setAccessToken(null)
+        tokenStorage.setRefreshToken(null)
     }
 }

@@ -10,5 +10,5 @@ interface AuthComponent {
         fun create(): AuthComponent
     }
 
-    fun inject(activity: AuthFragment)
+    fun inject(fragment: AuthFragment)
 }

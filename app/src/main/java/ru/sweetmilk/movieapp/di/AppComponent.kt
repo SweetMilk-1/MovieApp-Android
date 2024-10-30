@@ -8,6 +8,7 @@ import ru.sweetmilk.movieapp.api.di.ApiModule
 import ru.sweetmilk.movieapp.cases.auth.di.AuthComponent
 import ru.sweetmilk.movieapp.cases.movieDetails.di.MovieDetailsComponent
 import ru.sweetmilk.movieapp.cases.movieList.di.MovieListComponent
+import ru.sweetmilk.movieapp.cases.userData.di.UserDataComponent
 import ru.sweetmilk.movieapp.cases.userPage.di.UserPageComponent
 import javax.inject.Singleton
 
@@ -31,6 +32,7 @@ interface AppComponent {
     fun addMovieDetailsComponent(): MovieDetailsComponent.Factory
     fun addUserPageComponent(): UserPageComponent.Factory
     fun addAuthComponent(): AuthComponent.Factory
+    fun addUserDataComponent(): UserDataComponent.Factory
 }
 
 @Module(
@@ -38,7 +40,8 @@ interface AppComponent {
         MovieListComponent::class,
         MovieDetailsComponent::class,
         UserPageComponent::class,
-        AuthComponent::class
+        AuthComponent::class,
+        UserDataComponent::class
     ]
 )
 object FragmentSubcomponentsModule

@@ -15,9 +15,7 @@ import androidx.navigation.fragment.findNavController
 import ru.sweetmilk.movieapp.MovieApp
 import ru.sweetmilk.movieapp.R
 import ru.sweetmilk.movieapp.databinding.FragmentAuthBinding
-import ru.sweetmilk.movieapp.utils.SnackBarUtil
 import ru.sweetmilk.movieapp.validation.ValidationError
-import java.nio.file.Watchable
 import javax.inject.Inject
 
 class AuthFragment : Fragment() {
@@ -101,11 +99,12 @@ class AuthFragment : Fragment() {
             binding.loginField.isEnabled = !it
             binding.passwordField.isEnabled = !it
             binding.logInButton.isEnabled = !it
+//            binding.errorMessageView.isVisible = !it
             binding.progressBar.isVisible = it
         }
 
-        viewModel.serverMessageEvent.observe(viewLifecycleOwner) {
-            SnackBarUtil.showSnackBar(requireView(), it)
+        viewModel.errorMessage.observe(viewLifecycleOwner) {
+//            binding.errorMessageView.text = it
         }
 
         viewModel.isAuthorizedEvent.observe(viewLifecycleOwner) {

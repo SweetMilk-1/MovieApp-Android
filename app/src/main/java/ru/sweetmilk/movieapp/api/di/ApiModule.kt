@@ -10,6 +10,7 @@ import ru.sweetmilk.movieapp.api.RetrofitFactory
 import ru.sweetmilk.movieapp.api.auth.AuthApi
 import ru.sweetmilk.movieapp.api.repositories.actor.ActorApi
 import ru.sweetmilk.movieapp.api.repositories.movie.MovieApi
+import ru.sweetmilk.movieapp.api.repositories.user.UserApi
 import javax.inject.Singleton
 
 @Module
@@ -37,6 +38,14 @@ class ApiModule {
         retrofit: Retrofit
     ): AuthApi {
         return retrofit.create(AuthApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun getUserApi(
+        retrofit: Retrofit
+    ): UserApi {
+        return retrofit.create(UserApi::class.java)
     }
 
     @Singleton
